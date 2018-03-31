@@ -34,6 +34,10 @@ npm run e2e
 
 This command will add/build browser platform and initialize Protractor to run test in the browser platform.
 
+Three reports will be generated:
+⋅⋅*Simplified Terminal report
+⋅⋅*Complete report to file `junitresults.xml`
+⋅⋅*Screenshot reports in `./reports-tmp`
 
 ## Environment Variables
 
