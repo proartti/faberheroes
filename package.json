@@ -10,13 +10,17 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "browser": "ionic cordova run browser",
+    "browser": "ionic cordova run browser --livereload",
+    "browser:prod": "ionic cordova run browser --prod",
     "test": "ng test",
     "test-coverage": "ng test --code-coverage",
     "test-ci": "ng test --watch=false --code-coverage --no-progress",
     "start": "ionic serve",
     "e2e": "ionic cordova build browser && protractor",
     "postinstall": "webdriver-manager update --gecko false"
+  },
+  "config": {
+    "ionic_webpack": "./webpack.config.js"
   },
   "dependencies": {
     "@angular/animations": "5.2.9",
@@ -68,6 +72,7 @@
     "serve-static": "^1.13.2",
     "ts-node": "^5.0.1",
     "typescript": "~2.6.2",
+    "webpack": "^4.4.1",
     "ws": "^5.1.0"
   },
   "description": "An Ionic project",
