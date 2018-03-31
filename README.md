@@ -25,6 +25,30 @@ npm run test           # run unit tests (ng test)
 ```
 
 ## Run E2E
+
+To initialize the test run the command below:
+
 ```bash
 npm run e2e
+```
+
+This command will add/build browser platform and initialize Protractor to run test in the browser platform.
+
+
+## Environment Variables
+
+An separated configuration file for Webpack was added to manage the IONIC_EVN state.
+
+> Important. Normally the environment files will be ignored and not tracked by git, but I added the files as examples with mock data. In order to run the app you need to provide a valid api_key and secret key from Marvel API
+
+Open the file `src/environments/environment.dev.ts`
+
+```javascript
+
+export const ENV: Environment = {
+  url: 'http://gateway.marvel.com',
+  api_key: '[YOUR_API_KEY]',    // Your api_key here
+  secret: '[YOUR_SECRET_KEY]'      // Your secret Key here
+}
+
 ```
