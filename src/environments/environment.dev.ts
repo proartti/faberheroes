@@ -4,6 +4,6 @@ import { Environment } from './environment.model';
 
 export const ENV: Environment = {
   url: 'http://gateway.marvel.com',
-  api_key: '123',
-  secret: 'abc'
-}
+  public_key: '123',
+  private_key: 'abc'
+};
