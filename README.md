@@ -64,20 +64,20 @@ export const ENV: Environment = {
 
 All of the scripts are listed as following:
 
-| `yarn <script>` | Description                                                                                                           |
-| --------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `start`         | Run your app on the development server at `localhost:8100/`. Runs on watch for dev builds.                            |
-| `clean`         | Empty the www/build directory.                                                                                        |
-| `build`         | A complete build of the application. It uses development settings by default. Use --prod to create an optimized build |
-| `lint`          | Run the linter against the source .ts files, using the tslint.json config file at the root.                           |
-| `serve`         | Run the development server at `localhost:8100/`. Runs on watch for dev builds.                                        |
-| `browser`       | Adds and Run on browser platform. Live reload enabled to `developer` builds                                           |
-| `browser:prod`  | Adds and Run on browser platform on `production` build                                                                |
-| `test`          | Run tests with watch anabled                                                                                          |
-| `test-coverage` | Run tests with watch anabled and generates the code coverage report at `./coverage` folder                            |
-| `test-ci`       | Run the test only one time on a Headless Chrome and generates the code coverage report at `./coverage` folder         |
-| `e2e`           | Run protractor test on a brwoser platform                                                                             |
-| `postinstall`   | Run after package install to setup protractor enviroment                                                              |
+| `yarn <script>`                    | Description                                                                                                           |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `start`                            | Run your app on the development server at `localhost:8100/`. Runs on watch for dev builds.                            |
+| `clean`                            | Empty the www/build directory.                                                                                        |
+| `build`                            | A complete build of the application. It uses development settings by default. Use --prod to create an optimized build |
+| `lint`                             | Run the linter against the source .ts files, using the tslint.json config file at the root.                           |
+| `serve`                            | Run the development server at `localhost:8100/`. Runs on watch for dev builds.                                        |
+| `browser`                          | Adds and Run on browser platform. Live reload enabled to `developer` builds                                           |
+| `browser:prod`                     | Adds and Run on browser platform on `production` build                                                                |
+| `test`                             | Run tests with watch anabled                                                                                          |
+| `test-coverage` &nbsp;&nbsp;&nbsp; | Run tests with watch anabled and generates the code coverage report at `./coverage` folder                            |
+| `test-ci`                          | Run the test only one time on a Headless Chrome and generates the code coverage report at `./coverage` folder         |
+| `e2e`                              | Run protractor test on a brwoser platform                                                                             |
+| `postinstall`                      | Run after package install to setup protractor enviroment                                                              |
 
 ## App Structure
 
