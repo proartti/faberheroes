@@ -35,9 +35,10 @@ npm run e2e
 This command will add/build browser platform and initialize Protractor to run test in the browser platform.
 
 Three reports will be generated:
-⋅⋅* Simplified Terminal report
-⋅⋅* Complete report to file `junitresults.xml`
-⋅⋅* Screenshot reports in `./reports-tmp`
+* Simplified Terminal report
+* Complete report to file `./junitresults.xml`
+* Screenshot reports in `./reports-tmp/`
+  * Open `./reports-tmp/[current-date]/report.html` to visualize the report
 
 ## Environment Variables
 
@@ -51,8 +52,8 @@ Open the file `src/environments/environment.dev.ts`
 
 export const ENV: Environment = {
   url: 'http://gateway.marvel.com',
-  api_key: '[YOUR_API_KEY]',    // Your api_key here
-  secret: '[YOUR_SECRET_KEY]'      // Your secret Key here
+  api_key: '[YOUR_API_KEY]',        // Your api_key here
+  secret: '[YOUR_SECRET_KEY]'       // Your secret Key here
 }
 
 ```
