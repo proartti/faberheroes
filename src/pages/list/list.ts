@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { CharactersService } from '../../app/services/characters.service';
+import { Character } from '../../app/models/characters.model';
+
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
@@ -8,30 +11,24 @@ import { NavController, NavParams } from 'ionic-angular';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  heros: Character[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
-
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public characterServ: CharactersService) {
+    this.characterServ.get().subscribe(
+      res => {
+        this.heros = res.data.results;
+      },
+      error => console.log('error', error)
+    );
   }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
+  getHeros(event: any) {
+    this.characterServ
+      .get({ nameStartsWith: event.srcElement.value })
+      .subscribe(res => (this.heros = res.data.results), error => console.log('error', error));
+  }
+
+  getImage(path: string, extension: string) {
+    return path + '/portrait_small.' + extension;
   }
 }

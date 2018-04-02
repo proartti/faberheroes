@@ -8,16 +8,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar [animated]="true" (input)="getHeros($event)"></ion-searchbar>
   <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
+    <ion-item *ngFor="let hero of heros">
+      <ion-avatar item-start>
+        <img [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
+      </ion-avatar>
+      <h2>{{hero.name}}</h2>
+    </ion-item>
   </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
 </ion-content>
