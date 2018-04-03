@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Hero Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h1>Name: {{hero.name}}</h1>
+  <div *ngIf="hero.thumbnail">
+    <img [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
+    <p>{{getBio(hero.description)}}</p>
+  </div>
+
+  <ion-list *ngIf="hero.comics">
+    <ion-list-header>
+      {{hero.comics.available}} comics found
+    </ion-list-header>
+    <button ion-item *ngFor="let comic of hero.comics.items" (click)="openComicsDetails(comic.resourceURI)" icon-start>
+      <ion-icon name="book" item-start></ion-icon>
+      {{comic.name}}
+    </button>
+  </ion-list>
+
+</ion-content>
