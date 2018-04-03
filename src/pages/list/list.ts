@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { CharactersService } from '../../app/services/characters.service';
-import { PaginationParams } from '../../app/models/characters.model';
 import {
   CharacterDataWrapper,
   Character,
