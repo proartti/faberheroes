@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
 import { CharactersService } from '../../app/services/characters.service';
 import {
@@ -8,7 +8,9 @@ import {
   CharactersParameters,
   PaginationParams
 } from '../../app/models/characters.model';
+import { CharacterDetailsPage } from './character-details/character-details';
 
+@IonicPage()
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
@@ -59,8 +61,7 @@ export class ListPage {
 
   // Hero List click action
   openCharDetailsPage(heroID: number) {
-    console.log(heroID);
-    //this.navCtrl.push()
+    this.navCtrl.push(CharacterDetailsPage, { id: heroID });
   }
 
   /// SEARCH

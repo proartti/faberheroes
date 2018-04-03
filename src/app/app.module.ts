@@ -5,18 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ListPageModule } from '../pages/list/list.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { CharactersService } from '../app/services/characters.service';
-
 @NgModule({
-  declarations: [MyApp, HomePage, ListPage],
-  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp)],
+  declarations: [MyApp, HomePage],
+  imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(MyApp), ListPageModule],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, ListPage],
-  providers: [StatusBar, SplashScreen, { provide: ErrorHandler, useClass: IonicErrorHandler }, CharactersService]
+  entryComponents: [MyApp, HomePage],
+  providers: [StatusBar, SplashScreen, { provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
 export class AppModule {}
