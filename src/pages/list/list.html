@@ -3,18 +3,44 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>Character List</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [animated]="true" (input)="getHeros($event)"></ion-searchbar>
+  <ion-searchbar [animated]="true" (input)="inputChange($event)" [(ngModel)]="searhInput"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let hero of heros">
+    <button ion-item *ngFor="let hero of heros" (click)="openCharDetailsPage(hero.id)" icon-start>
       <ion-avatar item-start>
         <img [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
       </ion-avatar>
-      <h2>{{hero.name}}</h2>
-    </ion-item>
+      <h2>{{ hero.name }}</h2>
+      <p>
+        Comics:
+        <ion-badge color="light">{{hero.comics.returned}}</ion-badge>
+        | Series:
+        <ion-badge color="light">{{hero.series.returned}}</ion-badge>
+        | Stories:
+        <ion-badge color="light">{{hero.stories.returned}}</ion-badge>
+      </p>
+    </button>
   </ion-list>
 </ion-content>
+
+<ion-footer (swipe)="tipPage($event)">
+  <ion-toolbar>
+    <ion-buttons start>
+      <button type="button" ion-button icon-left (click)="prevPage($event)" [disabled]="paginationParams.currentPage == 1">
+        <ion-icon name="arrow-back"></ion-icon>
+        Back
+      </button>
+    </ion-buttons>
+    <ion-title>{{paginationText}}</ion-title>
+    <ion-buttons end>
+      <button type="button" ion-button icon-right (click)="nextPage($event)" [disabled]="paginationParams.currentPage == paginationParams.pagesTotal">
+        Next
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

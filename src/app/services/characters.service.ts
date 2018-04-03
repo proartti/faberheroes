@@ -15,8 +15,8 @@ export class CharactersService {
   constructor(private http: HttpClient) {}
 
   // Get Heros
-  // initialize the search with default limit = 20
-  get(params: CharactersParameters = { limit: 20 }) {
+  // initialize the search
+  get(params: CharactersParameters = {}) {
     return this.http
       .get<CharacterDataWrapper[]>(this._url + '/v1/public/characters?' + this.setParams(params) + this.authString())
       .pipe(catchError(this.handleError));
