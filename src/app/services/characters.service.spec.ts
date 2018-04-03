@@ -6,7 +6,7 @@ import { ENV } from '@app/env';
 import { CharacterDataWrapper, CharactersParameters } from '../models/characters.model';
 import md5 from 'crypto-js/md5';
 
-describe('Service: TreeService', () => {
+describe('Service: CharactersService', () => {
   let charactersServ: CharactersService;
   let navigatorSpy: any;
   let injector: TestBed;
@@ -33,6 +33,20 @@ describe('Service: TreeService', () => {
     const req = httpMock.expectOne(req => req.url.includes(_url));
     expect(req.request.method).toBe('GET');
     req.flush(responseGetCharactes);
+  });
+
+  it('#getHero', () => {
+    const heroID = 1016823;
+    const _url = ENV.url + '/v1/public/characters/' + heroID + '?';
+
+    charactersServ.getHero(heroID).subscribe(res => {
+      console.log(res);
+      expect(res.data.results[0].id).toBe(heroID);
+    });
+
+    const req = httpMock.expectOne(req => req.url.includes(_url));
+    expect(req.request.method).toBe('GET');
+    req.flush(responseGetHero);
   });
 
   it('#409', () => {
@@ -175,6 +189,102 @@ const responseGetCharactes = {
             type: 'comiclink',
             url:
               'http://marvel.com/comics/characters/1017100/a-bomb_has?utm_campaign=apiRef&utm_source=27c526379659c749ac160edc8cf7ef63'
+          }
+        ]
+      }
+    ]
+  }
+};
+
+const responseGetHero = {
+  code: 200,
+  status: 'Ok',
+  copyright: '© 2018 MARVEL',
+  attributionText: 'Data provided by Marvel. © 2018 MARVEL',
+  attributionHTML: '<a href="http://marvel.com">Data provided by Marvel. © 2018 MARVEL</a>',
+  etag: '9eea0c49dda19a432a5eb2ec3aaae53c3b97f937',
+  data: {
+    offset: 0,
+    limit: 20,
+    total: 1,
+    count: 1,
+    results: [
+      {
+        id: 1016823,
+        name: 'Abomination (Ultimate)',
+        description: '',
+        modified: '2012-07-10T19:11:52-0400',
+        thumbnail: {
+          path: 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available',
+          extension: 'jpg'
+        },
+        resourceURI: 'http://gateway.marvel.com/v1/public/characters/1016823',
+        comics: {
+          available: 3,
+          collectionURI: 'http://gateway.marvel.com/v1/public/characters/1016823/comics',
+          items: [
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/comics/15717',
+              name: 'Ultimate X-Men (2000) #26'
+            },
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/comics/1151',
+              name: 'Ultimate X-Men Vol. 6: Return of the King (Trade Paperback)'
+            },
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/comics/1186',
+              name: 'Ultimate X-Men Vol. VI: Return of the King (Trade Paperback)'
+            }
+          ],
+          returned: 3
+        },
+        series: {
+          available: 3,
+          collectionURI: 'http://gateway.marvel.com/v1/public/characters/1016823/series',
+          items: [
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/series/474',
+              name: 'Ultimate X-Men (2000 - 2009)'
+            },
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/series/210',
+              name: 'Ultimate X-Men Vol. 6: Return of the King (2003)'
+            },
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/series/243',
+              name: 'Ultimate X-Men Vol. VI: Return of the King (2003)'
+            }
+          ],
+          returned: 3
+        },
+        stories: {
+          available: 1,
+          collectionURI: 'http://gateway.marvel.com/v1/public/characters/1016823/stories',
+          items: [
+            {
+              resourceURI: 'http://gateway.marvel.com/v1/public/stories/31883',
+              name: 'Free Preview of THE INCREDIBLE HULK #50',
+              type: 'interiorStory'
+            }
+          ],
+          returned: 1
+        },
+        events: {
+          available: 0,
+          collectionURI: 'http://gateway.marvel.com/v1/public/characters/1016823/events',
+          items: [],
+          returned: 0
+        },
+        urls: [
+          {
+            type: 'detail',
+            url:
+              'http://marvel.com/characters/81/abomination?utm_campaign=apiRef&utm_source=27c526379659c749ac160edc8cf7ef63'
+          },
+          {
+            type: 'comiclink',
+            url:
+              'http://marvel.com/comics/characters/1016823/abomination_ultimate?utm_campaign=apiRef&utm_source=27c526379659c749ac160edc8cf7ef63'
           }
         ]
       }

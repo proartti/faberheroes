@@ -22,6 +22,13 @@ export class CharactersService {
       .pipe(catchError(this.handleError));
   }
 
+  // Get a specific Hero by its ID
+  getHero(heroID: number) {
+    return this.http
+      .get<CharacterDataWrapper>(this._url + '/v1/public/characters/' + heroID + '?' + this.authString())
+      .pipe(catchError(this.handleError));
+  }
+
   // convert the search params to string
   private setParams(params: CharactersParameters): string {
     let paramString = '';
