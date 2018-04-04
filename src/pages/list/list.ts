@@ -16,14 +16,15 @@ import { CharacterDetailsPage } from './character-details/character-details';
   templateUrl: 'list.html'
 })
 export class ListPage {
-  heros: Character[] = [];
+  heroes: Character[] = [];
   paginationParams: PaginationParams;
   paginationText: string;
   searhInput: string;
+  listLoader = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public characterServ: CharactersService) {
     // Set the heros initial data
-    this.getHeros();
+    this.getHeroes();
 
     // Reset Pagination and define default limit
     this.paginationParams = {
@@ -33,7 +34,9 @@ export class ListPage {
   }
 
   // Set the Heros Data
-  getHeros(params: CharactersParameters = {}) {
+  getHeroes(params: CharactersParameters = {}) {
+    // Show loading toast alert
+    this.listLoader = true;
     // if there is value in the searchbar add to the search params
     if (this.searhInput !== '') {
       params.nameStartsWith = this.searhInput;
@@ -41,8 +44,10 @@ export class ListPage {
     // Call the Character Service with custon params
     this.characterServ.get(params).subscribe(
       (res: CharacterDataWrapper) => {
+        // Hide loading
+        this.listLoader = false;
         // set the results to the hores data object
-        this.heros = res.data.results;
+        this.heroes = res.data.results;
         // Set the pagination params and text
         this.paginationParams.total = res.data.total;
         this.paginationParams.pagesTotal = Math.ceil(res.data.total / res.data.limit);
@@ -69,7 +74,7 @@ export class ListPage {
   inputChange(event: any) {
     this.paginationParams.currentPage = 1;
     this.paginationParams.offset = 0;
-    this.getHeros({ nameStartsWith: event.srcElement.value });
+    this.getHeroes({ nameStartsWith: event.srcElement.value });
   }
 
   /// PAGINATION
@@ -81,13 +86,13 @@ export class ListPage {
   prevPage() {
     this.paginationParams.currentPage--;
     const currentoffset = this.setCurrentOffset(this.paginationParams.currentPage);
-    this.getHeros({ offset: currentoffset });
+    this.getHeroes({ offset: currentoffset });
   }
   // get the next page
   nextPage() {
     this.paginationParams.currentPage++;
     const currentoffset = this.setCurrentOffset(this.paginationParams.currentPage);
-    this.getHeros({ offset: currentoffset });
+    this.getHeroes({ offset: currentoffset });
   }
   // track the swipe event in the footer to set first or last page
   tipPage(event: any) {
@@ -100,7 +105,7 @@ export class ListPage {
     }
     const currentoffset = this.setCurrentOffset(this.paginationParams.currentPage);
 
-    this.getHeros({ offset: currentoffset });
+    this.getHeroes({ offset: currentoffset });
   }
 
   private setCurrentOffset(currentPage, pageLimit = this.paginationParams.limit): number {

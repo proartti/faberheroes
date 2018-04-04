@@ -1,28 +1,28 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Character List</ion-title>
+    <ion-title>Find your hero</ion-title>
   </ion-navbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar [animated]="true" (input)="inputChange($event)" [(ngModel)]="searhInput"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
+<div class="listLoader" *ngIf="listLoader">
+  <ion-spinner></ion-spinner>
+</div>
+
 <ion-content>
-  <ion-searchbar [animated]="true" (input)="inputChange($event)" [(ngModel)]="searhInput"></ion-searchbar>
-  <ion-list>
-    <button ion-item *ngFor="let hero of heros" (click)="openCharDetailsPage(hero.id)" icon-start>
+  <ion-list *ngIf="heroes">
+    <ion-item *ngIf="heroes.length ===  0 && !listLoader">No heros found</ion-item>
+    <button ion-item *ngFor="let hero of heroes" (click)="openCharDetailsPage(hero.id)" icon-start>
       <ion-avatar item-start>
         <img [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
       </ion-avatar>
       <h2>{{ hero.name }}</h2>
-      <p>
-        Comics:
-        <ion-badge color="light">{{hero.comics.returned}}</ion-badge>
-        | Series:
-        <ion-badge color="light">{{hero.series.returned}}</ion-badge>
-        | Stories:
-        <ion-badge color="light">{{hero.stories.returned}}</ion-badge>
-      </p>
+      <ion-badge item-end [color]="hero.comics.returned === 0 ? 'light' : 'primary'">{{hero.comics.returned}}</ion-badge>
     </button>
   </ion-list>
 </ion-content>
