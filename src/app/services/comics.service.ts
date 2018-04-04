@@ -21,6 +21,13 @@ export class ComicsService {
       .pipe(catchError(this.handleError));
   }
 
+  // Get comic by ID
+  getComic(comicID: number) {
+    return this.http
+      .get<ComicDataWrapper[]>(this._url + '/v1/public/comics/' + comicID + '?' + this.authString())
+      .pipe(catchError(this.handleError));
+  }
+
   // Set the Authentication string
   // Make uses of ENV variables public_key and private_key
   private authString(): string {
