@@ -1,3 +1,43 @@
 page-home {
+  background-image: url('../assets/imgs/heroes_bg_grey.jpg');
+  background-size: cover;
+  ion-content,
+  .content-ios,
+  .content-md {
+    background-color: transparent;
+  }
+  ion-header {
+    &.header-md::after {
+      display: none;
+    }
+    &.header-ios .toolbar-background-ios {
+      border: none;
+    }
+  }
 
+  .welcomeBox {
+    margin-top: 20%;
+    text-align: center;
+    font-size: 2rem;
+    .logoHome {
+      width: 50%;
+      margin: 0 auto 2em auto;
+    }
+  }
+  .startButtonBox {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 20%;
+    text-align: center;
+    button {
+      font-size: 2rem;
+      font-weight: bold;
+      border-radius: 100%;
+      width: 15rem;
+      height: 15rem;
+      box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+  }
 }

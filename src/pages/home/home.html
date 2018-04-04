@@ -3,14 +3,23 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Faber Heros</h3>
+  <div class="welcomeBox">
+    <div class="logoHome">
+      <img src="../assets/imgs/logo_horizontal.svg">
+    </div>
 
-  <p>Welcome to Faber Heros App. Please click at the button to start your adventure.</p>
+    <p>
+      <strong>Welcome to Faber Heroes App.</strong>
+      <br> Please click at the button to start your adventure.</p>
+  </div>
 
-  <button (click)="navCtrl.push(listPage)" ion-button>Find your hero</button>
+  <div class="startButtonBox">
+    <button (click)="navCtrl.push(listPage)" ion-button>Find your
+      <br> hero</button>
+  </div>
+
 </ion-content>
