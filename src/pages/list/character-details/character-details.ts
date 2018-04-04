@@ -3,29 +3,28 @@ import { NavController, NavParams } from 'ionic-angular';
 import { CharactersService } from '../../../app/services/characters.service';
 import { CharacterDataWrapper, Character } from '../../../app/models/characters.model';
 
+import { ComicsPage } from '../../comics/comics';
+
 @Component({
   selector: 'page-character-details',
   templateUrl: 'character-details.html'
 })
 export class CharacterDetailsPage {
   hero = <Character>{};
+  heroID: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private charactersServ: CharactersService) {
     console.log(this.navParams.get('id'));
 
-    const heroID = this.navParams.get('id');
+    this.heroID = this.navParams.get('id');
 
-    this.charactersServ.getHero(heroID).subscribe(
+    this.charactersServ.getHero(this.heroID).subscribe(
       (res: CharacterDataWrapper) => {
         console.log(res);
         this.hero = res.data.results[0];
       },
       error => console.log(error)
     );
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CharacterDetailsPage', this.hero);
   }
 
   // Set main image
@@ -43,7 +42,7 @@ export class CharacterDetailsPage {
   }
 
   // comic list action
-  openComicsDetails(URI: string) {
-    console.log('URI', URI);
+  openComicsPage() {
+    this.navCtrl.push(ComicsPage, { heroID: this.heroID });
   }
 }

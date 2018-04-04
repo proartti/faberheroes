@@ -12,14 +12,10 @@
     <p>{{getBio(hero.description)}}</p>
   </div>
 
-  <ion-list *ngIf="hero.comics">
-    <ion-list-header>
-      {{hero.comics.available}} comics found
-    </ion-list-header>
-    <button ion-item *ngFor="let comic of hero.comics.items" (click)="openComicsDetails(comic.resourceURI)" icon-start>
-      <ion-icon name="book" item-start></ion-icon>
-      {{comic.name}}
-    </button>
-  </ion-list>
+  <button ion-button *ngIf="hero.comics" (click)="openComicsPage()" icon-start [disabled]="hero.comics.available == 0">
+    <ion-icon name="book" item-start></ion-icon>
+    {{hero.comics.available}} comics found.
+  </button>
+
 
 </ion-content>

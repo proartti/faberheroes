@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Comics</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let comic of heroComics" icon-start (click)="getComicDetails(comic.id)">
+      <ion-avatar item-start>
+        <img [src]="getImage(comic.thumbnail.path, comic.thumbnail.extension)">
+      </ion-avatar>
+      <h2>{{ comic.title }}</h2>
+    </button>
+  </ion-list>
+</ion-content>
