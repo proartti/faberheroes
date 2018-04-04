@@ -2,19 +2,14 @@
   "extends": "../tsconfig.ng-cli.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "baseUrl": "./",
     "module": "commonjs",
     "target": "es5",
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "types": ["jasmine", "node"],
+    "baseUrl": "./",
+    "paths": {
+      "@app/env": ["environments/environment"]
+    }
   },
-  "files": [
-    "test.ts"
-  ],
-  "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ]
+  "files": ["test.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
