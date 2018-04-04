@@ -6,6 +6,11 @@
 
 <ion-content padding>
 
-  <h1>Comic Title</h1>
+  <div *ngIf="comic.title">
+    <h1>{{comic.title}}</h1>
+    <img [src]="getImage(comic.thumbnail.path, comic.thumbnail.extension)">
+    <p>{{comic.description}}</p>
+    <p>{{comic.format}}</p>
+  </div>
 
 </ion-content>

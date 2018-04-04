@@ -11,14 +11,40 @@ export class ComicsDetailsPage {
   comic = <Comic>{};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private comicsServ: ComicsService) {
-    console.log(this.navParams.get('id'));
-
+    // get comic id from navigation params
     const comicID = this.navParams.get('id');
 
-    console.log(comicID);
+    // Initial set of comic data
+    this.getComic(comicID);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComicsDetailsPage', this.comic);
+  }
+
+  // set the comic data
+  getComic(comicID: number) {
+    this.comicsServ.getComic(comicID).subscribe(
+      (res: ComicDataWrapper) => {
+        console.log('comic', res);
+
+        this.comic = res.data.results[0];
+      },
+      error => console.log(error)
+    );
+  }
+
+  // Set main image
+  getImage(path: string, extension: string) {
+    return path + '/portrait_uncanny.' + extension;
+  }
+
+  // Set the hero bio
+  getBio(bioText: string) {
+    if (bioText == '') {
+      return 'Hero has no bio available';
+    } else {
+      return bioText;
+    }
   }
 }

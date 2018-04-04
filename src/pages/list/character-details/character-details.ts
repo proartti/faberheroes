@@ -29,7 +29,7 @@ export class CharacterDetailsPage {
 
   // Set main image
   getImage(path: string, extension: string) {
-    return path + '/portrait_xlarge.' + extension;
+    return path + '/landscape_incredible.' + extension;
   }
 
   // Set the hero bio
