@@ -3,7 +3,7 @@
     <ion-toolbar color="primary">
       <ion-title>
         <div class="logoMenu">
-          <img src="../assets/imgs/logo_menu.svg">
+          <img src="../assets/imgs/logo_menu.svg" alt="Faber Heroes">
         </div>
       </ion-title>
     </ion-toolbar>
@@ -12,7 +12,7 @@
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon [name]="p.icon" item-start></ion-icon>
+        <ion-icon item-start></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
