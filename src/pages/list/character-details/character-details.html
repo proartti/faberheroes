@@ -4,18 +4,50 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div class="topContent" [ngStyle]="{'background-color': bgColorRGB}">
+    <div class="heroAvatar" *ngIf="hero.thumbnail">
+      <img class="characterImage" [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
+    </div>
+  </div>
 
-  <h1>Name: {{hero.name}}</h1>
-  <div *ngIf="hero.thumbnail">
-    <img [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
+  <div class="charInfo">
+    <h1>{{hero.name}}</h1>
     <p>{{getBio(hero.description)}}</p>
   </div>
 
-  <button ion-button *ngIf="hero.comics" (click)="openComicsPage()" icon-start [disabled]="hero.comics.available == 0">
-    <ion-icon name="book" item-start></ion-icon>
-    {{hero.comics.available}} comics found.
-  </button>
+  <ion-list *ngIf="hero.comics" no-lines>
+    <ion-item icon-start>
+      <ion-thumbnail item-start>
+        <img src="../assets/imgs/comics_icon.svg">
+      </ion-thumbnail>
+      <h2>
+        <strong>Comics</strong>
+      </h2>
+      <p>{{hero.comics.available}} comics for this character was found</p>
+      <button ion-button item-end (click)="openComicsPage()" [disabled]="hero.comics.available == 0" [color]="hero.comics.available === 0 ? 'light' : 'primary'">Details</button>
+    </ion-item>
+
+    <ion-item icon-start>
+      <ion-thumbnail item-start>
+        <img src="../assets/imgs/series_icon.svg">
+      </ion-thumbnail>
+      <h2>
+        <strong>Series</strong>
+      </h2>
+      <p>{{hero.series.available}} series for this character was found</p>
+    </ion-item>
+
+    <ion-item icon-start>
+      <ion-thumbnail item-start>
+        <img src="../assets/imgs/stories_icon.svg">
+      </ion-thumbnail>
+      <h2>
+        <strong>Stories</strong>
+      </h2>
+      <p>{{hero.stories.available}} stories for this character was found</p>
+    </ion-item>
+  </ion-list>
 
 
 </ion-content>

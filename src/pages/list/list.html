@@ -22,7 +22,7 @@
         <img [src]="getImage(hero.thumbnail.path, hero.thumbnail.extension)">
       </ion-avatar>
       <h2>{{ hero.name }}</h2>
-      <ion-badge item-end [color]="hero.comics.returned === 0 ? 'light' : 'primary'">{{hero.comics.returned}}</ion-badge>
+      <ion-badge item-end [color]="hero.comics.returned === 0 ? 'light' : 'primary'">{{hero.comics.available}}</ion-badge>
     </button>
   </ion-list>
 </ion-content>
