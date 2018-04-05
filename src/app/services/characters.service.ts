@@ -5,6 +5,7 @@ import { CharacterDataWrapper, CharactersParameters } from '../models/characters
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import * as md5 from 'crypto-js/md5';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CharactersService {
@@ -40,6 +41,61 @@ export class CharactersService {
       }
     }
     return paramString;
+  }
+
+  // load the image and return its blob
+  // Takes the full image path as argument
+  // ex: imagePath: string = 'http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784/standard_fantastic.jpg'
+  getImageData(imagePath: string): Observable<Blob> {
+    return this.http.get(imagePath, {
+      responseType: 'blob'
+    });
+  }
+
+  // takes the ImageBitmap and return the avarage RGB value
+  getAverageRGB(imgEl: ImageBitmap): string {
+    let blockSize = 5; // only visit every 5 pixels
+    let defaultBG = 'rgb(255, 255, 255)'; // for non-supporting envs
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext && canvas.getContext('2d');
+    let data;
+    let width;
+    let height;
+    let i = -4;
+    let length;
+    let rgb = { r: 0, g: 0, b: 0 };
+    let count = 0;
+
+    if (!context) {
+      return defaultBG;
+    }
+
+    height = canvas.height = imgEl.height;
+    width = canvas.width = imgEl.width;
+
+    context.drawImage(imgEl, 0, 0);
+
+    try {
+      data = context.getImageData(0, 0, width, height);
+    } catch (e) {
+      return defaultBG;
+    }
+
+    length = data.data.length;
+
+    while ((i += blockSize * 4) < length) {
+      ++count;
+      rgb.r += data.data[i];
+      rgb.g += data.data[i + 1];
+      rgb.b += data.data[i + 2];
+    }
+
+    // ~~ used to floor values
+    rgb.r = ~~(rgb.r / count);
+    rgb.g = ~~(rgb.g / count);
+    rgb.b = ~~(rgb.b / count);
+
+    return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
   }
 
   // Set the Authentication string
