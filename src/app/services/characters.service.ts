@@ -55,7 +55,7 @@ export class CharactersService {
   // takes the ImageBitmap and return the avarage RGB value
   getAverageRGB(imgEl: ImageBitmap): string {
     let blockSize = 5; // only visit every 5 pixels
-    let defaultBG = 'rgb(255, 255, 255)'; // for non-supporting envs
+    let defaultBG = 'rgb(223, 229, 231)'; // for non-supporting envs
     let canvas = document.createElement('canvas');
     let context = canvas.getContext && canvas.getContext('2d');
     let data;

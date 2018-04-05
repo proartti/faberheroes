@@ -13,7 +13,8 @@ export class CharacterDetailsPage {
   hero = <Character>{};
   heroID: number;
   bgColorRGB: string;
-  defaultBG = 'rgb(255, 255, 255)';
+  defaultBG = 'rgb(195, 200, 205)';
+  showImage = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private charactersServ: CharactersService) {
     this.heroID = this.navParams.get('id');
@@ -62,5 +63,11 @@ export class CharacterDetailsPage {
         this.bgColorRGB = this.charactersServ.getAverageRGB(i);
       });
     });
+  }
+
+  // show char image
+  imageLoad() {
+    this.showImage = true;
+    console.log('this.showImage', this.showImage);
   }
 }

@@ -3,12 +3,19 @@ page-character-details {
     position: relative;
     height: 250px;
     background-image: url('../assets/imgs/triangle.svg');
-    background-position: bottom center;
+    background-position: 0px 300px;
     background-repeat: no-repeat;
-    background-size: 100% 48%;
+    background-size: 100% 120px;
+    opacity: 0;
+    transition: all 0.5s;
+    &.showBG {
+      background-position: 0px 132px;
+      opacity: 1;
+    }
     .heroAvatar {
       position: absolute;
-      bottom: -30px;
+      bottom: 0px;
+      opacity: 0;
       left: 50%;
       margin-left: -100px;
       width: 200px;
@@ -16,6 +23,12 @@ page-character-details {
       overflow: hidden;
       border-radius: 100%;
       border: 5px solid #fff;
+      background-color: #a6b3b8;
+      transition: all 0.5s;
+      &.showImage {
+        bottom: -30px;
+        opacity: 1;
+      }
     }
   }
   .charInfo {
