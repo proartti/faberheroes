@@ -134,3 +134,8 @@ export interface EventSummary {
   resourceURI: string;
   name: string;
 }
+
+export interface ComicsParameters {
+  limit?: number;
+  offset?: number;
+}

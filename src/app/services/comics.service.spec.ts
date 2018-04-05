@@ -1,10 +1,7 @@
-import md5 from 'crypto-js/md5';
-import { CharacterDataWrapper, CharactersParameters } from '../models/characters.model';
 import { ComicsService } from './comics.service';
 import { ENV } from '@app/env';
 import { errorMsg, responseGetCharacterComics, responseGetError409, responseComicByID } from './responses.mocks';
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('Service: ComicsService', () => {
@@ -30,7 +27,7 @@ describe('Service: ComicsService', () => {
     const heroID = 1009149;
     const _url = ENV.url + '/v1/public/characters/' + heroID + '/comics?';
 
-    comicsServ.getHeroComics(heroID).subscribe(res => expect(res.status).toBe('Ok'));
+    comicsServ.getHeroComics(heroID, {}).subscribe(res => expect(res.status).toBe('Ok'));
 
     const req = httpMock.expectOne(req => req.url.includes(_url));
     expect(req.request.method).toBe('GET');
@@ -53,7 +50,7 @@ describe('Service: ComicsService', () => {
     const _url = ENV.url + '/v1/public/characters/' + heroID + '/comics?';
 
     comicsServ
-      .getHeroComics(heroID)
+      .getHeroComics(heroID, {})
       .subscribe(res => fail('should have failed with the 409 error'), error => expect(error).toMatch('409'));
 
     const req = httpMock.expectOne(req => req.url.includes(_url));

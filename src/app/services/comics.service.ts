@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ENV } from '@app/env';
-import { ComicDataWrapper } from '../models/comics.model';
+import { ComicDataWrapper, ComicsParameters } from '../models/comics.model';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators';
 import * as md5 from 'crypto-js/md5';
@@ -15,9 +15,11 @@ export class ComicsService {
   constructor(private http: HttpClient) {}
 
   // Get All Comics by the Hero ID
-  getHeroComics(heroID: number) {
+  getHeroComics(heroID, params: ComicsParameters) {
     return this.http
-      .get<ComicDataWrapper[]>(this._url + '/v1/public/characters/' + heroID + '/comics?' + this.authString())
+      .get<ComicDataWrapper[]>(
+        this._url + '/v1/public/characters/' + heroID + '/comics?' + this.setParams(params) + this.authString()
+      )
       .pipe(catchError(this.handleError));
   }
 
@@ -26,6 +28,19 @@ export class ComicsService {
     return this.http
       .get<ComicDataWrapper[]>(this._url + '/v1/public/comics/' + comicID + '?' + this.authString())
       .pipe(catchError(this.handleError));
+  }
+
+  // convert the search params to string
+  private setParams(params: ComicsParameters): string {
+    let paramString = '';
+
+    // Check the params and adds it to paramString
+    for (const param in params) {
+      if (params[param]) {
+        paramString += '&' + param + '=' + params[param];
+      }
+    }
+    return paramString;
   }
 
   // Set the Authentication string
