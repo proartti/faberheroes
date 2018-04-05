@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="welcomeBox">
+  <div class="welcomeBox" [ngClass]="{'showWelcome': showWelcome}">
     <div class="logoHome">
       <img src="../assets/imgs/logo_horizontal.svg">
     </div>
@@ -17,7 +17,7 @@
       <br> Please click at the button to start your adventure.</p>
   </div>
 
-  <div class="startButtonBox">
+  <div class="startButtonBox" [ngClass]="{'showBtn': showWelcome}">
     <button (click)="navCtrl.push(listPage)" ion-button>Find your
       <br> hero</button>
   </div>

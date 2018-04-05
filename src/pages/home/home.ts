@@ -8,5 +8,14 @@ import { ListPage } from '../list/list';
 })
 export class HomePage {
   listPage = ListPage;
+  showWelcome = false;
   constructor(public navCtrl: NavController) {}
+
+  ionViewDidEnter() {
+    this.showWelcome = true;
+  }
+
+  ionViewWillLeave() {
+    this.showWelcome = false;
+  }
 }

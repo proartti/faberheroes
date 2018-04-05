@@ -1,6 +1,7 @@
 page-home {
   background-image: url('../assets/imgs/heroes_bg_grey.jpg');
   background-size: cover;
+  background-position: center bottom;
   ion-content,
   .content-ios,
   .content-md {
@@ -16,11 +17,18 @@ page-home {
   }
 
   .welcomeBox {
-    margin-top: 20%;
+    margin-top: 2rem;
     text-align: center;
     font-size: 2rem;
+    opacity: 0;
+    transition: all 0.5s;
+    &.showWelcome {
+      margin-top: 5rem;
+      opacity: 1;
+    }
     .logoHome {
       width: 50%;
+      max-width: 400px;
       margin: 0 auto 2em auto;
     }
   }
@@ -29,8 +37,14 @@ page-home {
     left: 0;
     right: 0;
     top: auto;
-    bottom: 20%;
+    bottom: 1rem;
     text-align: center;
+    opacity: 0;
+    transition: all 0.5s;
+    &.showBtn {
+      bottom: 5rem;
+      opacity: 1;
+    }
     button {
       font-size: 2rem;
       font-weight: bold;
