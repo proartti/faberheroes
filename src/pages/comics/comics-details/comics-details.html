@@ -1,16 +1,62 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Hero Details</ion-title>
+    <ion-title>Comic Details</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
-  <div *ngIf="comic.title">
-    <h1>{{comic.title}}</h1>
+  <ion-card *ngIf="comic.title">
     <img [src]="getImage(comic.thumbnail.path, comic.thumbnail.extension)">
-    <p>{{comic.description}}</p>
-    <p>{{comic.format}}</p>
-  </div>
+    <ion-card-content>
+      <ion-card-title>{{comic.title}}</ion-card-title>
+      <p>{{getDescription(comic.description)}}</p>
 
+      <ion-list>
+        <ion-list-header>
+          Details
+        </ion-list-header>
+        <ion-item>
+          <h2>Format</h2>
+          <ion-badge item-end>{{comic.format}}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <h2>Pages</h2>
+          <ion-badge item-end>{{comic.pageCount}}</ion-badge>
+        </ion-item>
+        <ion-item>
+          <h2>Issue #</h2>
+          <ion-badge item-end>{{comic.issueNumber}}</ion-badge>
+        </ion-item>
+        <ion-item *ngIf="comic.prices.length > 0">
+          <h2>Price</h2>
+          <ion-badge item-end>
+            <span *ngFor="let p of comic.prices">
+              {{p.type | priceTypeName}}: {{p.price | currency}}
+            </span>
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="comic.events.available > 0">
+        <ion-list-header>
+          Marvel events in this comic: {{comic.events.available}}
+        </ion-list-header>
+        <ion-item *ngFor="let event of comic.events.items">
+          <ion-icon name="flash" item-start></ion-icon>
+          {{event.name}}
+        </ion-item>
+      </ion-list>
+
+      <ion-list *ngIf="comic.creators.available > 0">
+        <ion-list-header>
+          Creators found: {{comic.creators.available}}
+        </ion-list-header>
+        <ion-item *ngFor="let creator of comic.creators.items">
+          {{creator.name}}
+          <ion-badge item-end color="light">{{creator.role}}</ion-badge>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>

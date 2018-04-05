@@ -26,7 +26,7 @@ export class ComicsDetailsPage {
   getComic(comicID: number) {
     this.comicsServ.getComic(comicID).subscribe(
       (res: ComicDataWrapper) => {
-        console.log('comic', res);
+        console.log('comic', res.data.results[0]);
 
         this.comic = res.data.results[0];
       },
@@ -40,11 +40,11 @@ export class ComicsDetailsPage {
   }
 
   // Set the hero bio
-  getBio(bioText: string) {
-    if (bioText == '') {
-      return 'Hero has no bio available';
+  getDescription(descriptionText: string) {
+    if (descriptionText == '' || descriptionText == null) {
+      return 'Comic has no description available';
     } else {
-      return bioText;
+      return descriptionText;
     }
   }
 }

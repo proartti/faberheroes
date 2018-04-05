@@ -7,9 +7,9 @@
 <ion-content padding>
   <ion-list>
     <button ion-item *ngFor="let comic of heroComics" icon-start (click)="getComicDetails(comic.id)">
-      <ion-avatar item-start>
+      <ion-thumbnail item-start>
         <img [src]="getImage(comic.thumbnail.path, comic.thumbnail.extension)">
-      </ion-avatar>
+      </ion-thumbnail>
       <h2>{{ comic.title }}</h2>
     </button>
   </ion-list>
