@@ -1,7 +1,11 @@
 ## Faber Heros App
 
-This app is made as as test of the Ionic Framework v3.
-App was started with the Sidebar ionic-angular template.
+Find your Marvel Heroes with this simple yet 'uncanny' Ionic 3 App. This app was started with the Ionic-cli utilizing the Ionic-Angular Sidenav template.
+
+This starter project utilize the Angular-CLI to run Jasmine/Karma for unit test and also Protractor for E2E test. Also some cool stuff like Prettier and Environment files.
+
+![Screenshots Faber Heros](./src/assets/imgs/screenshots.jpg?raw=true "Faber Heros")
+
 
 ## Install & Start
 
@@ -19,6 +23,22 @@ or
 ```bash
 yarn
 yarn browser            # start the application on browser platform
+```
+
+## Environment Variables
+
+An separated configuration file for Webpack was added to manage the IONIC_EVN state.
+
+> Important. Normally the environment files will be ignored and not tracked by git, but I added the files as examples with mock data. In order to run the app you need to provide a valid api_key and secret key from Marvel API
+
+Open the file `src/environments/environment.dev.ts`
+
+```javascript
+export const ENV: Environment = {
+  url: 'http://gateway.marvel.com',
+  public_key: '[YOUR_API_KEY]', // Your api_key here
+  private_key: '[YOUR_SECRET_KEY]' // Your secret Key here
+};
 ```
 
 ## Run Unit Tests
@@ -44,40 +64,25 @@ Three reports will be generated:
 * Screenshot reports in `./reports-tmp/`
   * Open `./reports-tmp/[current-date]/report.html` to visualize the report
 
-## Environment Variables
-
-An separated configuration file for Webpack was added to manage the IONIC_EVN state.
-
-> Important. Normally the environment files will be ignored and not tracked by git, but I added the files as examples with mock data. In order to run the app you need to provide a valid api_key and secret key from Marvel API
-
-Open the file `src/environments/environment.dev.ts`
-
-```javascript
-export const ENV: Environment = {
-  url: 'http://gateway.marvel.com',
-  api_key: '[YOUR_API_KEY]', // Your api_key here
-  secret: '[YOUR_SECRET_KEY]' // Your secret Key here
-};
-```
 
 ## NPM Script Commands
 
 All of the scripts are listed as following:
 
-| `yarn <script>`                    | Description                                                                                                           |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `start`                            | Run your app on the development server at `localhost:8100/`. Runs on watch for dev builds.                            |
-| `clean`                            | Empty the www/build directory.                                                                                        |
-| `build`                            | A complete build of the application. It uses development settings by default. Use --prod to create an optimized build |
-| `lint`                             | Run the linter against the source .ts files, using the tslint.json config file at the root.                           |
-| `serve`                            | Run the development server at `localhost:8100/`. Runs on watch for dev builds.                                        |
-| `browser`                          | Adds and Run on browser platform. Live reload enabled to `developer` builds                                           |
-| `browser:prod`                     | Adds and Run on browser platform on `production` build                                                                |
-| `test`                             | Run tests with watch anabled                                                                                          |
-| `test-coverage` &nbsp;&nbsp;&nbsp; | Run tests with watch anabled and generates the code coverage report at `./coverage` folder                            |
-| `test-ci`                          | Run the test only one time on a Headless Chrome and generates the code coverage report at `./coverage` folder         |
-| `e2e`                              | Run protractor test on a brwoser platform                                                                             |
-| `postinstall`                      | Run after package install to setup protractor enviroment                                                              |
+| `yarn <script>`                            | Description                                                                                                           |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| `start`                                    | Run your app on the development server at `localhost:8100/`. Runs on watch for dev builds.                            |
+| `clean`                                    | Empty the www/build directory.                                                                                        |
+| `build`                                    | A complete build of the application. It uses development settings by default. Use --prod to create an optimized build |
+| `lint`                                     | Run the linter against the source .ts files, using the tslint.json config file at the root.                           |
+| `serve`                                    | Run the development server at `localhost:8100/`. Runs on watch for dev builds.                                        |
+| `browser`                                  | Adds and Run on browser platform. Live reload enabled to `developer` builds                                           |
+| `browser:prod`                             | Adds and Run on browser platform on `production` build                                                                |
+| `test`                                     | Run tests with watch anabled                                                                                          |
+| `test-coverage`                            | Run tests with watch anabled and generates the code coverage report at `./coverage` folder                            |
+| `test-ci`                                  | Run the test only one time on a Headless Chrome and generates the code coverage report at `./coverage` folder         |
+| `e2e`                                      | Run protractor test on a brwoser platform                                                                             |
+| `postinstall`                              | Run after package install to setup protractor enviroment                                                              |
 
 ## App Structure
 
@@ -94,6 +99,9 @@ Here is the structure of the app, which folows the Ionic-Angular pattern and gui
 │   └── splash.png                  # Splash image source
 ├── src                             # App source code
 │   ├── app                         # App main files folder
+│   |   ├── models                  # Folder to keep all typescript model
+│   |   ├── pipes                   # Folder to all pipes
+│   |   └── services                # Folder to keep all services
 │   ├── assets                      # Folder to keep global app assets
 │   ├── environments                # Enviroments files (usually not tracked by git)
 │   ├── pages                       # Folder to keep all apps pages conponents
@@ -113,3 +121,20 @@ Here is the structure of the app, which folows the Ionic-Angular pattern and gui
 └── tslint.json                     # Typescript Lint configuration file
 └── webpack.config.js               # Webpack extra configurations for environment files
 ```
+
+## ToDo
+
+* Erros messages in toast or alerts
+Better user experience when user is informed of whats going wrong
+
+* Add Android and iOS recources and platforms
+
+* More reactive animations
+GSAP to animate buttons reactions to taps and svg effects
+
+
+## Credit
+
+* Create the app with IONIC-CLI [ionicframework.com/docs/cli/](https://ionicframework.com/docs/cli/)
+* The base app UI, components and icons from [ionicframework.com](https://ionicframework.com/framework)
+
