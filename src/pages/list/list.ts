@@ -2,12 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
 import { CharactersService } from '../../app/services/characters.service';
-import {
-  CharacterDataWrapper,
-  Character,
-  CharactersParameters,
-  PaginationParams
-} from '../../app/models/characters.model';
+import { PaginationService } from '../../app/services/pagination.service';
+import { CharacterDataWrapper, Character, CharactersParameters } from '../../app/models/characters.model';
+import { PaginationParams } from '../../app/models/pagination.model';
 import { CharacterDetailsPage } from './character-details/character-details';
 
 @IonicPage()
@@ -17,20 +14,27 @@ import { CharacterDetailsPage } from './character-details/character-details';
 })
 export class ListPage {
   heroes: Character[] = [];
-  paginationParams: PaginationParams;
+  pagination: PaginationParams;
   paginationText: string;
   searhInput: string;
   listLoader = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public characterServ: CharactersService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public characterServ: CharactersService,
+    private paginationServ: PaginationService
+  ) {
     // Set the heros initial data
     this.getHeroes();
 
-    // Reset Pagination and define default limit
-    this.paginationParams = {
-      limit: 20,
-      currentPage: 1
-    };
+    // Reset Pagination to default
+    this.pagination = this.paginationServ.getPager({
+      currentPage: 1,
+      offset: 0,
+      total: 1,
+      limit: 20
+    });
   }
 
   // Set the Heros Data
@@ -49,10 +53,14 @@ export class ListPage {
         // set the results to the hores data object
         this.heroes = res.data.results;
         // Set the pagination params and text
-        this.paginationParams.total = res.data.total;
-        this.paginationParams.pagesTotal = Math.ceil(res.data.total / res.data.limit);
 
-        this.setPaginationText(this.paginationParams);
+        // this.setPaginationText(this.pagination);
+        // uses the dot-notation (...) to keep the values already set in the object
+        this.pagination = this.paginationServ.getPager({
+          ...this.pagination,
+          total: res.data.total,
+          limit: res.data.limit
+        });
       },
       error => console.log('error', error)
     );
@@ -72,8 +80,8 @@ export class ListPage {
   /// SEARCH
   // Input change event
   inputChange(event: any) {
-    this.paginationParams.currentPage = 1;
-    this.paginationParams.offset = 0;
+    this.pagination.currentPage = 1;
+    this.pagination.offset = 0;
     this.getHeroes({ nameStartsWith: event.srcElement.value });
   }
 
@@ -83,32 +91,27 @@ export class ListPage {
     this.paginationText = 'Page ' + params.currentPage + ' of ' + params.pagesTotal;
   }
   // get the previus page
-  prevPage() {
-    this.paginationParams.currentPage--;
-    const currentoffset = this.setCurrentOffset(this.paginationParams.currentPage);
-    this.getHeroes({ offset: currentoffset });
+  setPage(targetPage: number) {
+    this.pagination = this.paginationServ.getPager({
+      ...this.pagination,
+      currentPage: targetPage
+    });
+    this.getHeroes({ offset: this.pagination.offset });
   }
-  // get the next page
-  nextPage() {
-    this.paginationParams.currentPage++;
-    const currentoffset = this.setCurrentOffset(this.paginationParams.currentPage);
-    this.getHeroes({ offset: currentoffset });
-  }
+
   // track the swipe event in the footer to set first or last page
   tipPage(event: any) {
+    // Set the target page based on the swipe event
     // Event Direction => 2 = left | 4 = right
     if (event.direction == 2) {
-      this.paginationParams.currentPage = 1;
+      this.pagination.currentPage = 1;
     }
     if (event.direction == 4) {
-      this.paginationParams.currentPage = this.paginationParams.pagesTotal;
+      this.pagination.currentPage = this.pagination.pagesTotal;
     }
-    const currentoffset = this.setCurrentOffset(this.paginationParams.currentPage);
-
-    this.getHeroes({ offset: currentoffset });
-  }
-
-  private setCurrentOffset(currentPage, pageLimit = this.paginationParams.limit): number {
-    return currentPage * (pageLimit - 1);
+    // update the paginationsParams object
+    this.pagination = this.paginationServ.getPager(this.pagination);
+    // update the list
+    this.getHeroes({ offset: this.pagination.offset });
   }
 }

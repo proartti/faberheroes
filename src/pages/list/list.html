@@ -27,17 +27,17 @@
   </ion-list>
 </ion-content>
 
-<ion-footer (swipe)="tipPage($event)">
+<ion-footer (swipe)="tipPage($event)" *ngIf="pagination">
   <ion-toolbar>
     <ion-buttons start>
-      <button type="button" ion-button icon-left (click)="prevPage($event)" [disabled]="paginationParams.currentPage == 1">
+      <button type="button" ion-button icon-left (click)="setPage(pagination.currentPage -1)" [disabled]="pagination.currentPage == 1">
         <ion-icon name="arrow-back"></ion-icon>
         Back
       </button>
     </ion-buttons>
-    <ion-title>{{paginationText}}</ion-title>
+    <ion-title>{{pagination.text}}</ion-title>
     <ion-buttons end>
-      <button type="button" ion-button icon-right (click)="nextPage($event)" [disabled]="paginationParams.currentPage == paginationParams.pagesTotal">
+      <button type="button" ion-button icon-right (click)="setPage(pagination.currentPage +1)" [disabled]="pagination.currentPage == pagination.pagesTotal">
         Next
         <ion-icon name="arrow-forward"></ion-icon>
       </button>

@@ -100,11 +100,3 @@ export interface CharactersParameters {
   limit?: number;
   offset?: number;
 }
-
-export interface PaginationParams {
-  currentPage: number;
-  limit: number;
-  offset?: number;
-  total?: number;
-  pagesTotal?: number;
-}
